@@ -1,0 +1,12 @@
+{
+  /* コンパイルする際のオプション。オプションは基本この中に書く*/
+  "compilerOptions": {
+    /* ソースマップの生成。コンパイル前のファイルとコンパイル後のファイルを対応させるためのファイル */
+    "sourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    /* 組み込みライブラリ(Promiseとか)を使う時、どのバージョンのライブラリを使っているのか指定。esnextはまだ実用できないものも含めた最新のもの */
+    "lib": ["esnext"],
+    "esModuleInterop": true
+  }
+}
