@@ -12,6 +12,7 @@ generator client {
 }
 
 // npx prisma migrate dev --name init の実行で対応するSQLファイルが作成され、それに基づいてDBが定義される
+
 model Post {
   id Int @default(autoincrement()) @id
   createdAt DateTime @default(now())
@@ -19,7 +20,10 @@ model Post {
   title String @db.VarChar(255)
   content String?
   published Boolean @default(false)
+  // authorカラムが追加されるのではなく、リレーションを定義している。スカラタイプではなくモデルを渡しているフィールドは基本的にリレーションを表す
+  // fieldsはテーブルにおける外部キーを表す
   author User @relation(fields: [authorId], references: [id])
+  // @relationの fields に定義した値はスカラ型で定義
   authorId Int
 }
 
@@ -34,6 +38,7 @@ model User {
   id Int @default(autoincrement()) @id
   email String
   name String?
+  // リレーションを表しているだけで、カラムは追加されない
   posts Post[]
   profile Profile?
 }
