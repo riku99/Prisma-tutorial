@@ -1,0 +1,50 @@
+prismaとは
+    次世代ORM
+    RESTにもGraphQlにも使える
+    以下の3つから成り立つ
+        Prisma Client
+            Node.js & TSのためのクエリを発行してくれるやつ
+        Prisma Migrate
+            マイグレーションシステム。テーブル作ってくれたり定義してくれるやつ
+        Prisma Studio
+            GUIでいろいろ設定できるやつ
+    
+    始め方
+        Prisma schema fileから始まる
+
+    Prisma schema
+        Prisma schemaではアプリケーションのモデル(Railsのモデルみたいなもん)を定義したり、DBの定義、接続を行う。
+        リレーションとかも簡単に定義できる。
+
+    Modelの作り方
+        ・Prisma Migrateで直接書く
+        ・Introspectionを使う。
+        多分基本的に Prisma Migrate でいい。
+
+なぜPrismaを選択するのか
+    結論
+        SQLの複雑さを排除したまま更に既存ORMよりも生産性、コントロール性を向上させることができるため
+
+    まず基本的にSQLがややこしい
+        SQLのデバッグはしんどい
+        PrismaはDBのクエリを型安全で推定しやすい、書きやすい形で提供してくれる。そしてプレーンなオブジェクトを返してくれる。
+
+    Prismaの信条で個人的に特に好きなとこ
+        Thinking in objects instead of mapping relational data (オブジェクトで考えよう)
+        Queries not classes to avoid complex model objects (クラスでリレーション考えると複雑だから避けよう)
+        Healthy constraints that prevent common pitfalls and antipatterns (制約しっかりしてるよ)
+        Type-safe database queries that can be validated at compile time (型安全だよ)
+
+    SQLや既存ORMの生産性とコントロール性がしっかりトレードオフ問題
+        SQLはコントロール性は上がるが生産性が結構下がる。
+        既存のORMは生産性は上がるがコントロール性が結構悪くなる。
+            ORMは開発者の「オブジェクト的に考えたい」というメンタルモデルにあっている。だから使いやすい。
+            ただ、発行されるSQLのメンタルモデルは「テーブル的」である。この相違が原因で徐々に綻び始める
+                ネストで関連を表すオブジェクトと外部キーで表すテーブルをマッピングすることはかなり複雑で、裏ではパフォーマンスの問題が出たりする。
+                この1つが「N+1問題」
+
+    開発者はクエリではなく必要なデータに気を配り、着目すべきなのでは?
+        共感した一文
+        After all, developers should only care about the data they need to implement a feature and not spend time figuring out complicated SQL queries or massaging query results to fit their needs.
+
+    このORMだときつくなるけどSQLだとしんどすぎる問題を少しでも改善したのがPrismaである。
