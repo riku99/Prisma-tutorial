@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:13.2
+    container_name: prisma_db
+    restart: unless-stopped
+    volumes:
+      - psql:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=ri
+      - POSTGRES_PASSWORD=pass
+    ports:
+      - "5432:5432"
+
+volumes:
+  psql:
+    driver: local
